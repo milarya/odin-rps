@@ -24,7 +24,7 @@ console.log('Computer choice is: '+ getComputerChoice());
 
 function getHumanChoice(message = 'Please enter your choice. It can be \'rock\', \'paper\' or \'scissors\'') {
     // prompt the user to input his choice
-    let rawHumanChoice = prompt(message, 'rock');
+    let rawHumanChoice = prompt(message, getComputerChoice());
     // convert input to lower case
     let sanitizedHumanChoice = rawHumanChoice.toLowerCase();
     // check if the choice is valid:
@@ -33,7 +33,7 @@ function getHumanChoice(message = 'Please enter your choice. It can be \'rock\',
     if (sanitizedHumanChoice === 'rock' || sanitizedHumanChoice === 'paper' || sanitizedHumanChoice === 'scissors') {
         return sanitizedHumanChoice;
     } else {
-        return getHumanChoice('This choice is not valid. Please enter again or use the suggestion.', 'rock');
+        return getHumanChoice('This choice is not valid. Please enter again or use the suggestion.');
     }
     // return choice
 }
