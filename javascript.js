@@ -64,6 +64,7 @@ function playGame() {
     let humanScore = 0;
     let computerScore = 0;
     for (i = 1; i <= 5; i++) {
+        console.group('Round ' + i);
         const computerSelection = getComputerChoice();
         console.log('Computer selection in round ' + i + ' : ' + computerSelection);
         const humanSelection = getHumanChoice();
@@ -72,20 +73,30 @@ function playGame() {
         // print winning message
         // increment winner score
         if (winner === 'human') {
-            console.log('You win! ' + firstLetterToUpper(humanSelection) + ' beats ' + computerSelection);
+            console.log('You win this round! ' + firstLetterToUpper(humanSelection) + ' beats ' + computerSelection);
             humanScore++;
         } else if (winner === 'computer') {
-            console.log('You lose! ' + firstLetterToUpper(computerSelection) + ' beats ' + humanSelection);
+            console.log('You lose this round! ' + firstLetterToUpper(computerSelection) + ' beats ' + humanSelection);
             computerScore++;
         } else if (winner === 'none') {
-            console.log('It\'s a draw!');
+            console.log('The round is a draw!');
         } else {
             console.log('Could not calculate a winner!');       
         }
+        console.groupEnd('Round ' + i);
     }
-    console.log('Final result:');
+    console.group('Game results');
+    console.log('~~~ Final result ~~~');
     console.log('Computer: ' + computerScore);
     console.log('Human: ' + humanScore); 
+    if (humanScore === computerScore) {
+        console.log('The game is a draw!');
+    } else if (humanScore > computerScore) {
+        console.log('You win the game!');
+    } else {
+        console.log('The computer wins!');
+    }
+    console.groupEnd('Game results');
 }
 
 playGame();
