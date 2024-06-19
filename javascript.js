@@ -1,5 +1,10 @@
 console.log("Starting game....");
 
+// helper functions
+function firstLetterToUpper(string) {
+    return string = string[0].toUpperCase() + string.substring(1); 
+}
+
 // calculate computer choice
 
 function getComputerChoice() {
@@ -42,16 +47,33 @@ let computerScore = 0;
 function playRound(humanChoice, computerChoice) {
     // @todo calculate winner
     let winner = '';
+    // 3 tied conditions if both chose the same
+    if (humanChoice === computerChoice) {
+        winner = 'none';
+    } else if (
+            // 3 winning conditions
+            (humanChoice === 'rock' && computerChoice == 'scissors') ||
+            (humanChoice === 'scissors' && computerChoice == 'paper') ||
+            (humanChoice === 'paper' && computerChoice == 'rock')       
+        ) {
+            winner = 'human';
+    } else {
+        // rest: 3 losing conditions
+        winner = 'computer';
+    }
+
     // print winning message
     // increment winner score
     if (winner === 'human') {
-        console.log('You win!' + humanChoice + ' beats ' + computerChoice);
+        console.log('You win! ' + firstLetterToUpper(humanChoice) + ' beats ' + computerChoice);
         humanScore++;
     } else if (winner === 'computer') {
-        console.log('You lose!' + computerChoice + ' beats ' + humanChoice);
+        console.log('You lose! ' + firstLetterToUpper(computerChoice) + ' beats ' + humanChoice);
         computerScore++;
+    } else if (winner === 'none') {
+        console.log('It\'s a draw!');
     } else {
-        console.log('Could not calculate a winner!');
+        console.log('Could not calculate a winner!');       
     }
 }
 
@@ -60,7 +82,5 @@ console.log('Computer selection: ' + computerSelection);
 
 const humanSelection = getHumanChoice();
 console.log('Human selection: ' + humanSelection);
-
-
 
 playRound(humanSelection, computerSelection);
