@@ -41,11 +41,7 @@ function getHumanChoice(message = 'Please enter your choice. It can be \'rock\',
     // return choice
 }
 
-let humanScore = 0;
-let computerScore = 0;
-
 function playRound(humanChoice, computerChoice) {
-    // @todo calculate winner
     let winner = '';
     // 3 tied conditions if both chose the same
     if (humanChoice === computerChoice) {
@@ -61,26 +57,35 @@ function playRound(humanChoice, computerChoice) {
         // rest: 3 losing conditions
         winner = 'computer';
     }
-
-    // print winning message
-    // increment winner score
-    if (winner === 'human') {
-        console.log('You win! ' + firstLetterToUpper(humanChoice) + ' beats ' + computerChoice);
-        humanScore++;
-    } else if (winner === 'computer') {
-        console.log('You lose! ' + firstLetterToUpper(computerChoice) + ' beats ' + humanChoice);
-        computerScore++;
-    } else if (winner === 'none') {
-        console.log('It\'s a draw!');
-    } else {
-        console.log('Could not calculate a winner!');       
-    }
+    return winner;
 }
 
-const computerSelection = getComputerChoice();
-console.log('Computer selection: ' + computerSelection);
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+    for (i = 1; i <= 5; i++) {
+        const computerSelection = getComputerChoice();
+        console.log('Computer selection in round ' + i + ' : ' + computerSelection);
+        const humanSelection = getHumanChoice();
+        console.log('Human selection in round ' + i + ' : ' + humanSelection);
+        let winner = playRound(humanSelection, computerSelection);
+        // print winning message
+        // increment winner score
+        if (winner === 'human') {
+            console.log('You win! ' + firstLetterToUpper(humanSelection) + ' beats ' + computerSelection);
+            humanScore++;
+        } else if (winner === 'computer') {
+            console.log('You lose! ' + firstLetterToUpper(computerSelection) + ' beats ' + humanSelection);
+            computerScore++;
+        } else if (winner === 'none') {
+            console.log('It\'s a draw!');
+        } else {
+            console.log('Could not calculate a winner!');       
+        }
+    }
+    console.log('Final result:');
+    console.log('Computer: ' + computerScore);
+    console.log('Human: ' + humanScore); 
+}
 
-const humanSelection = getHumanChoice();
-console.log('Human selection: ' + humanSelection);
-
-playRound(humanSelection, computerSelection);
+playGame();
