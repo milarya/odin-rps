@@ -20,8 +20,6 @@ function getComputerChoice() {
     }
 }
 
-console.log('Computer choice is: '+ getComputerChoice());
-
 function getHumanChoice(message = 'Please enter your choice. It can be \'rock\', \'paper\' or \'scissors\'') {
     // prompt the user to input his choice
     let rawHumanChoice = prompt(message, getComputerChoice());
@@ -38,4 +36,31 @@ function getHumanChoice(message = 'Please enter your choice. It can be \'rock\',
     // return choice
 }
 
-console.log('Human choice is: ' + getHumanChoice());
+let humanScore = 0;
+let computerScore = 0;
+
+function playRound(humanChoice, computerChoice) {
+    // @todo calculate winner
+    let winner = '';
+    // print winning message
+    // increment winner score
+    if (winner === 'human') {
+        console.log('You win!' + humanChoice + ' beats ' + computerChoice);
+        humanScore++;
+    } else if (winner === 'computer') {
+        console.log('You lose!' + computerChoice + ' beats ' + humanChoice);
+        computerScore++;
+    } else {
+        console.log('Could not calculate a winner!');
+    }
+}
+
+const computerSelection = getComputerChoice();
+console.log('Computer selection: ' + computerSelection);
+
+const humanSelection = getHumanChoice();
+console.log('Human selection: ' + humanSelection);
+
+
+
+playRound(humanSelection, computerSelection);
