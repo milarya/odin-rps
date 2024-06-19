@@ -21,3 +21,21 @@ function getComputerChoice() {
 }
 
 console.log('Computer choice is: '+ getComputerChoice());
+
+function getHumanChoice(message = 'Please enter your choice. It can be \'rock\', \'paper\' or \'scissors\'') {
+    // prompt the user to input his choice
+    let rawHumanChoice = prompt(message, 'rock');
+    // convert input to lower case
+    let sanitizedHumanChoice = rawHumanChoice.toLowerCase();
+    // check if the choice is valid:
+        // IF choice is 'rock' or 'paper' or 'scissors' THEN return choice
+        // ELSE prompt user again
+    if (sanitizedHumanChoice === 'rock' || sanitizedHumanChoice === 'paper' || sanitizedHumanChoice === 'scissors') {
+        return sanitizedHumanChoice;
+    } else {
+        return getHumanChoice('This choice is not valid. Please enter again or use the suggestion.', 'rock');
+    }
+    // return choice
+}
+
+console.log('Human choice is: ' + getHumanChoice());
