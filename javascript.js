@@ -65,24 +65,32 @@ function playRound(humanChoice, computerChoice) {
         // print winning message
         // increment winner score
         if (winner === 'human') {
-            console.log('You win this round! ' + 
+            writeToLog('You win this round! ' + 
                 firstLetterToUpper(humanChoice) + 
                 ' beats ' + 
                 computerChoice);
             humanScore++;
         } else if (winner === 'computer') {
-            console.log('You lose this round! ' + 
+            writeToLog('You lose this round! ' + 
                 firstLetterToUpper(computerChoice) + 
                 ' beats ' + 
                 humanChoice);
             computerScore++;
         } else if (winner === 'none') {
-            console.log('The round is a draw!');
+            writeToLog('The round is a draw!');
         } else {
-            console.log('Could not calculate a winner!');       
+            writeToLog('Could not calculate a winner!');       
         }
 
     return winner;
+}
+
+function writeToLog(message) {
+    const logDiv = document.querySelector('.score-log');
+    const para = document.createElement('p');
+    const messageText = document.createTextNode(message);
+    para.appendChild(messageText);
+    logDiv.appendChild(para);
 }
 
 function playGame() {
