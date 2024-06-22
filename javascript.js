@@ -1,4 +1,9 @@
+let humanScore = 0;
+let computerScore = 0;
+
 console.log("Starting game....");
+
+
 
 // helper functions
 function firstLetterToUpper(string) {
@@ -6,7 +11,6 @@ function firstLetterToUpper(string) {
 }
 
 // calculate computer choice
-
 function getComputerChoice() {
     // INIT variable for random number
     let randomOfThree;
@@ -57,12 +61,32 @@ function playRound(humanChoice, computerChoice) {
         // rest: 3 losing conditions
         winner = 'computer';
     }
+
+        // print winning message
+        // increment winner score
+        if (winner === 'human') {
+            console.log('You win this round! ' + 
+                firstLetterToUpper(humanChoice) + 
+                ' beats ' + 
+                computerChoice);
+            humanScore++;
+        } else if (winner === 'computer') {
+            console.log('You lose this round! ' + 
+                firstLetterToUpper(computerChoice) + 
+                ' beats ' + 
+                humanChoice);
+            computerScore++;
+        } else if (winner === 'none') {
+            console.log('The round is a draw!');
+        } else {
+            console.log('Could not calculate a winner!');       
+        }
+
     return winner;
 }
 
 function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
+
     for (i = 1; i <= 5; i++) {
         console.group('Round ' + i);
         const computerSelection = getComputerChoice();
@@ -70,19 +94,7 @@ function playGame() {
         const humanSelection = getHumanChoice();
         console.log('Human selection in round ' + i + ' : ' + humanSelection);
         let winner = playRound(humanSelection, computerSelection);
-        // print winning message
-        // increment winner score
-        if (winner === 'human') {
-            console.log('You win this round! ' + firstLetterToUpper(humanSelection) + ' beats ' + computerSelection);
-            humanScore++;
-        } else if (winner === 'computer') {
-            console.log('You lose this round! ' + firstLetterToUpper(computerSelection) + ' beats ' + humanSelection);
-            computerScore++;
-        } else if (winner === 'none') {
-            console.log('The round is a draw!');
-        } else {
-            console.log('Could not calculate a winner!');       
-        }
+
         console.groupEnd('Round ' + i);
     }
     console.group('Game results');
