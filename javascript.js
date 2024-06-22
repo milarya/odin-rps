@@ -47,40 +47,42 @@ function getHumanChoice(message = 'Please enter your choice. It can be \'rock\',
 
 function playRound(humanChoice, computerChoice) {
     let winner = '';
+
+    // calculate the winner
     // 3 tied conditions if both chose the same
     if (humanChoice === computerChoice) {
         winner = 'none';
     } else if (
-            // 3 winning conditions
-            (humanChoice === 'rock' && computerChoice == 'scissors') ||
-            (humanChoice === 'scissors' && computerChoice == 'paper') ||
-            (humanChoice === 'paper' && computerChoice == 'rock')       
-        ) {
-            winner = 'human';
+        // 3 winning conditions
+        (humanChoice === 'rock' && computerChoice == 'scissors') ||
+        (humanChoice === 'scissors' && computerChoice == 'paper') ||
+        (humanChoice === 'paper' && computerChoice == 'rock')       
+    ) {
+        winner = 'human';
     } else {
         // rest: 3 losing conditions
         winner = 'computer';
     }
 
-        // print winning message
-        // increment winner score
-        if (winner === 'human') {
-            writeToLog('You win this round! ' + 
-                firstLetterToUpper(humanChoice) + 
-                ' beats ' + 
-                computerChoice);
-            updateScore(winner);
-        } else if (winner === 'computer') {
-            writeToLog('You lose this round! ' + 
-                firstLetterToUpper(computerChoice) + 
-                ' beats ' + 
-                humanChoice);
-            updateScore(winner);
-        } else if (winner === 'none') {
-            writeToLog('The round is a draw!');
-        } else {
-            writeToLog('Could not calculate a winner!');       
-        }
+    // increment winner score
+    updateScore(winner);
+
+    // print winning message
+    if (winner === 'human') {
+        writeToLog('You win this round! ' + 
+            firstLetterToUpper(humanChoice) + 
+            ' beats ' + 
+            computerChoice);
+    } else if (winner === 'computer') {
+        writeToLog('You lose this round! ' + 
+            firstLetterToUpper(computerChoice) + 
+            ' beats ' + 
+            humanChoice);
+    } else if (winner === 'none') {
+        writeToLog('The round is a draw!');
+    } else {
+        writeToLog('Could not calculate a winner!');       
+    }
 
     return winner;
 }
@@ -103,39 +105,27 @@ function updateScore(winner) {
     const divComputerScore = document.querySelector('.score-computer');
     divHumanScore.innerText = 'Human score: ' + humanScore;
     divComputerScore.innerText = 'Computer score: ' + computerScore;
+
+    if (humanScore >= 5 || computerScore >= 5) {
+        finishGame();
+    }
 }
 
-// function playGame() {
-
-//     for (i = 1; i <= 5; i++) {
-//         console.group('Round ' + i);
-//         const computerSelection = getComputerChoice();
-//         console.log('Computer selection in round ' + i + ' : ' + computerSelection);
-//         const humanSelection = getHumanChoice();
-//         console.log('Human selection in round ' + i + ' : ' + humanSelection);
-//         let winner = playRound(humanSelection, computerSelection);
-
-//         console.groupEnd('Round ' + i);
-//     }
-//     console.group('Game results');
-//     console.log('~~~ Final result ~~~');
-//     console.log('Computer: ' + computerScore);
-//     console.log('Human: ' + humanScore); 
-//     if (humanScore === computerScore) {
-//         console.log('The game is a draw!');
-//     } else if (humanScore > computerScore) {
-//         console.log('You win the game!');
-//     } else {
-//         console.log('The computer wins!');
-//     }
-//     console.groupEnd('Game results');
-// }
-
-// playGame();
-
-// const btnRock = document.querySelector('.rock');
-// const btnPaper = document.querySelector('.paper');
-// const btnScissors = document.querySelector('.scissors');
+function finishGame() {
+    // display winner#
+    const divResult = document.querySelector('.score-result');
+    if (humanScore > computerScore) {
+         divResult.innerText = 'You win the game!';
+     } else {
+         divResult.innerText = 'The computer wins!';
+     }
+    // reset scores
+    humanScore = 0;
+    computerScore = 0;
+    // empty log
+    const logDiv = document.querySelector('.score-log');
+    logDiv.innerText = 'Game log:';
+}
 
 // Event listeners for complete document
 
