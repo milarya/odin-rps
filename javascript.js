@@ -111,4 +111,16 @@ function playGame() {
     console.groupEnd('Game results');
 }
 
-playGame();
+// playGame();
+
+// const btnRock = document.querySelector('.rock');
+// const btnPaper = document.querySelector('.paper');
+// const btnScissors = document.querySelector('.scissors');
+
+// Event listeners for complete document
+
+document.addEventListener('click', (event) => {
+    if (event.target.tagName === 'BUTTON') {
+    playRound((event.target.getAttribute('class')), getComputerChoice());
+    }
+});
