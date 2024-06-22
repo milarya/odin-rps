@@ -69,13 +69,13 @@ function playRound(humanChoice, computerChoice) {
                 firstLetterToUpper(humanChoice) + 
                 ' beats ' + 
                 computerChoice);
-            humanScore++;
+            updateScore(winner);
         } else if (winner === 'computer') {
             writeToLog('You lose this round! ' + 
                 firstLetterToUpper(computerChoice) + 
                 ' beats ' + 
                 humanChoice);
-            computerScore++;
+            updateScore(winner);
         } else if (winner === 'none') {
             writeToLog('The round is a draw!');
         } else {
@@ -93,31 +93,43 @@ function writeToLog(message) {
     logDiv.appendChild(para);
 }
 
-function playGame() {
-
-    for (i = 1; i <= 5; i++) {
-        console.group('Round ' + i);
-        const computerSelection = getComputerChoice();
-        console.log('Computer selection in round ' + i + ' : ' + computerSelection);
-        const humanSelection = getHumanChoice();
-        console.log('Human selection in round ' + i + ' : ' + humanSelection);
-        let winner = playRound(humanSelection, computerSelection);
-
-        console.groupEnd('Round ' + i);
+function updateScore(winner) {
+    if (winner === 'human') {
+        humanScore++;
+    } else if (winner === 'computer') {
+        computerScore++;
     }
-    console.group('Game results');
-    console.log('~~~ Final result ~~~');
-    console.log('Computer: ' + computerScore);
-    console.log('Human: ' + humanScore); 
-    if (humanScore === computerScore) {
-        console.log('The game is a draw!');
-    } else if (humanScore > computerScore) {
-        console.log('You win the game!');
-    } else {
-        console.log('The computer wins!');
-    }
-    console.groupEnd('Game results');
+    const divHumanScore = document.querySelector('.score-human');
+    const divComputerScore = document.querySelector('.score-computer');
+    divHumanScore.innerText = 'Human score: ' + humanScore;
+    divComputerScore.innerText = 'Computer score: ' + computerScore;
 }
+
+// function playGame() {
+
+//     for (i = 1; i <= 5; i++) {
+//         console.group('Round ' + i);
+//         const computerSelection = getComputerChoice();
+//         console.log('Computer selection in round ' + i + ' : ' + computerSelection);
+//         const humanSelection = getHumanChoice();
+//         console.log('Human selection in round ' + i + ' : ' + humanSelection);
+//         let winner = playRound(humanSelection, computerSelection);
+
+//         console.groupEnd('Round ' + i);
+//     }
+//     console.group('Game results');
+//     console.log('~~~ Final result ~~~');
+//     console.log('Computer: ' + computerScore);
+//     console.log('Human: ' + humanScore); 
+//     if (humanScore === computerScore) {
+//         console.log('The game is a draw!');
+//     } else if (humanScore > computerScore) {
+//         console.log('You win the game!');
+//     } else {
+//         console.log('The computer wins!');
+//     }
+//     console.groupEnd('Game results');
+// }
 
 // playGame();
 
