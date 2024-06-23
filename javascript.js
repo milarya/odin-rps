@@ -128,9 +128,10 @@ function finishGame() {
 }
 
 // Event listeners for complete document
+const button = document.querySelectorAll('button');
 
-document.addEventListener('click', (event) => {
-    if (event.target.tagName === 'BUTTON') {
-    playRound((event.target.getAttribute('class')), getComputerChoice());
-    }
+button.forEach((element) => {
+    element.addEventListener('click', (event) => {
+        playRound((event.target.getAttribute('class')), getComputerChoice());
+    });
 });
