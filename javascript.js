@@ -1,10 +1,6 @@
 let humanScore = 0;
 let computerScore = 0;
 
-console.log("Starting game....");
-
-
-
 // helper functions
 function firstLetterToUpper(string) {
     return string = string[0].toUpperCase() + string.substring(1); 
@@ -64,9 +60,6 @@ function playRound(humanChoice, computerChoice) {
         winner = 'computer';
     }
 
-    // increment winner score
-    updateScore(winner);
-
     // print winning message
     if (winner === 'human') {
         writeToLog('You win this round! ' + 
@@ -83,6 +76,9 @@ function playRound(humanChoice, computerChoice) {
     } else {
         writeToLog('Could not calculate a winner!');       
     }
+
+    // increment winner score
+    updateScore(winner);
 
     return winner;
 }
@@ -108,6 +104,9 @@ function updateScore(winner) {
 
     if (humanScore >= 5 || computerScore >= 5) {
         finishGame();
+    } else {
+        // remove winner message
+        document.querySelector('.score-result').innerText = 'Final result: ---';
     }
 }
 
